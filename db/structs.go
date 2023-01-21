@@ -1,6 +1,10 @@
-package database
+package db
 
-import "time"
+import (
+	"encoding/json"
+	"io"
+	"time"
+)
 
 type Product struct {
 	ID          int       `json:"id"`
@@ -57,9 +61,11 @@ type Cart struct {
 	Price      float64 `json:"price"`
 }
 
-// conStr := "postgresql://postgres:printhello003@localhost:5432/ecom?schema=public"
-// 	db, err := sql.Open("postgres", conStr)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer db.Close()
+func Tostruct(v interface{}, b io.ReadCloser) {
+	err := json.NewDecoder(b).Decode(v)
+	if err != nil {
+		panic(err)
+	}
+}
+
+const ConStr string = "postgresql://postgres:printhello003@localhost:5432/ecom?sslmode=disable"

@@ -1,17 +1,12 @@
 package main
 
 import (
-	//"fmt"
-
-	//"database/sql"
-
 	"log"
 	"os"
 
+	"github.com/e-commerce-app/handlers"
 	"github.com/gorilla/mux"
 	"net/http"
-	// _ "github.com/lib/pq"
-	"github.com/e-commerce-app/handlers"
 )
 
 func main() {
@@ -25,6 +20,8 @@ func main() {
 
 	//handlers
 	ph := handlers.NewProductHandler(logger)
+	cushand := handlers.NewCustomerHandler(logger)
+	ordhand := handlers.NewProductHandler(logger)
 
 	//Routes
 	getRouter.HandleFunc("/products", ph.GetAll)
@@ -32,6 +29,17 @@ func main() {
 	postRouter.HandleFunc("products", ph.Post)
 	putRouter.HandleFunc("/products/{id}", ph.Update)
 	deleteRouter.HandleFunc("/products/{id}", ph.Delete)
+
+	getRouter.HandleFunc("/customers", cushand.GetAll)
+	getRouter.HandleFunc("/customers/{id}", cushand.GetOne)
+	postRouter.HandleFunc("customers", cushand.Post)
+	putRouter.HandleFunc("/customers/{id}", cushand.Update)
+	deleteRouter.HandleFunc("/customers/{id}", cushand.Delete)
+
+	getRouter.HandleFunc("/orders", ordhand.GetAll)
+	getRouter.HandleFunc("/orders/{id}", ordhand.GetOne)
+	postRouter.HandleFunc("orders", ordhand.Post)
+	deleteRouter.HandleFunc("/orders/{id}", ordhand.Delete)
 
 	http.ListenAndServe(":7080", r)
 }
