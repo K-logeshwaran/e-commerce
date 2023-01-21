@@ -1,0 +1,105 @@
+	🔥 A RESTful API for a simple e-commerce website
+Type:
+	Intermidiate level Project 3
+
+Requirments:
+	🔥GET /products - Retrieve a list of products
+
+	🔥GET /products/{id} - Retrieve details of a specific product by ID
+
+	✌️POST /products - Create a new product
+
+	🫡PUT /products/{id} - Update an existing product
+
+	❤️DELETE /products/{id} - Delete a product
+
+	🔥GET /categories - Retrieve a list of categories
+
+	🔥GET /categories/{id} - Retrieve details of a specific category by ID
+
+	🔥GET /orders - Retrieve a list of orders
+
+	🔥GET /orders/{id} - Retrieve details of a specific order by ID
+
+	✌️POST /orders - Create a new order
+
+	❤️DELETE /orders/{id} - Cancel an order
+
+	🔥GET /customers - Retrieve a list of customers
+
+	🔥GET /customers/{id} - Retrieve details of a specific customer by ID
+
+	✌️POST /customers - Create a new customer
+
+	🫡PUT /customers/{id} - Update an existing customer
+
+	❤️DELETE /customers/{id} - Delete a customer
+
+	✌️POST /login - Authenticate a customer
+
+	✌️POST /logout - Log out a customer
+
+	✌️POST /register - Register a new customer
+
+	🔥GET /cart - Retrieve the current cart details
+
+	✌️POST /cart - Add a product to the cart
+
+	🫡PUT /cart - Update the cart
+
+	❤️DELETE /cart - Clear the cart
+
+	✌️POST /checkout - Process the payment and complete the order
+
+	🔥GET /search?q={query} - Search for products by name or description
+
+
+Products table:
+	id (integer, primary key)
+	name (string)
+	description (string)
+	price (float)
+	category_id (integer, foreign key referencing category table)
+	image_url (string)
+	quantity (integer)
+	created_at (datetime)
+	updated_at (datetime)
+
+
+Categories table:
+	id (integer, primary key)
+	name (string)
+	created_at (datetime)
+	updated_at (datetime)
+
+Orders table:
+	id (integer, primary key)
+	customer_id (integer, foreign key referencing customer table)
+	status (string)
+	total_price (float)
+	created_at (datetime)
+	updated_at (datetime)
+
+Order_items table:
+	id (integer, primary key)
+	order_id (integer, foreign key referencing orders table)
+	product_id (integer, foreign key referencing products table)
+	quantity (integer)
+	price (float)
+	
+Customers table:
+	id (integer, primary key)
+	first_name (string)
+	last_name (string)
+	email (string)
+	password (string)
+	address (string)
+	created_at (datetime)
+	updated_at (datetime)
+
+Cart table:
+	id (integer, primary key)
+	customer_id (integer, foreign key referencing customer table)
+	product_id (integer, foreign key referencing products table)
+	quantity (integer)
+	price (float)
