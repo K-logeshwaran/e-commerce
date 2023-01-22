@@ -24,11 +24,11 @@ func main() {
 	ordhand := handlers.NewProductHandler(logger)
 
 	//Routes
+	getRouter.HandleFunc("/product/{id}", ph.GetOne)
 	getRouter.HandleFunc("/products", ph.GetAll)
-	getRouter.HandleFunc("/products/{id}", ph.GetOne)
-	postRouter.HandleFunc("products", ph.Post)
-	putRouter.HandleFunc("/products/{id}", ph.Update)
-	deleteRouter.HandleFunc("/products/{id}", ph.Delete)
+	postRouter.HandleFunc("/products", ph.Post)
+	putRouter.HandleFunc("/product/{id}", ph.Update)
+	deleteRouter.HandleFunc("/product/{id}", ph.Delete)
 
 	getRouter.HandleFunc("/customers", cushand.GetAll)
 	getRouter.HandleFunc("/customers/{id}", cushand.GetOne)

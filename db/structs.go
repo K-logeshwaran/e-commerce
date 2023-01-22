@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+const ConStr string = "postgresql://postgres:printhello003@localhost:5432/ecom?sslmode=disable"
+
 type Product struct {
 	ID          int       `json:"id"`
 	Name        string    `json:"name"`
@@ -61,11 +63,30 @@ type Cart struct {
 	Price      float64 `json:"price"`
 }
 
-func Tostruct(v interface{}, b io.ReadCloser) {
-	err := json.NewDecoder(b).Decode(v)
+func (p *Product) ToJson(w io.Writer) {
+	err := json.NewEncoder(w).Encode(p)
 	if err != nil {
 		panic(err)
 	}
 }
 
-const ConStr string = "postgresql://postgres:printhello003@localhost:5432/ecom?sslmode=disable"
+func (p *Customer) ToJson(w io.Writer) {
+	err := json.NewEncoder(w).Encode(p)
+	if err != nil {
+		panic(err)
+	}
+}
+func (p *Order) ToJson(w io.Writer) {
+	err := json.NewEncoder(w).Encode(p)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func Tostruct(v interface{}, b io.ReadCloser) error {
+	err := json.NewDecoder(b).Decode(v)
+	if err != nil {
+		return err
+	}
+	return nil
+}
